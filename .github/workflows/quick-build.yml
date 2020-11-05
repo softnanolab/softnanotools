@@ -1,0 +1,22 @@
+# Builds using pip and tests using pytest
+
+name: Quick Build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Update Dependencies
+      run: pip install --upgrade pip setuptools wheel
+    - name: Install
+      run: pip install .
+    - name: Test
+      run: pip install pytest && pytest
+        
