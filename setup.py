@@ -5,7 +5,6 @@ with open("README.md", "r", encoding='utf-8') as f:
 
 setuptools.setup(
     name="softnanotools",
-    version="0.1.0",
     author="Debesh Mandal",
     description="Tools for computing",
     long_description=long_description,
@@ -17,5 +16,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.5"
+    python_requires=">=3.5",
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
 )
