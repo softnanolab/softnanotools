@@ -1,4 +1,4 @@
-from _core import IPythonCell, IPythonNotebook
+from ._core import IPythonCell, IPythonNotebook
 from typing import List
 
 class IPythonTools:
