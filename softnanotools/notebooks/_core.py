@@ -39,6 +39,38 @@ _DEFAULT_METADATA_ = {
     }
 }
 
+class IPythonCell:
+    def __init__(self, cell: dict = None):
+        if cell == None:
+            self.cell_type = None
+            self.metadata = {}
+            self.source = []
+            self.outputs = []
+            self.execution_count = 0
+        else:
+            self.validate(cell)
+            self.cell_type = cell['cell_type']
+            self.metadata = cell['metadata']
+            self.source = cell['source']
+            self.outputs = cell.get('outputs', [])
+            self.execution_count = cell.get('execution_count', 0)
+
+        if self.cell_type == 'markdown':
+            if hasattr(self, 'outputs'):
+                del self.outputs
+            if hasattr(self, 'execution_count'):
+                del self.execution_count
+
+    def validate(self, cell: dict):
+        try:
+            assert [i in _CELL_KEYS_ for i in cell.keys()]
+        except AssertionError:
+            raise TypeError(f'{cell.keys()} are not in {_CELL_KEYS_}')
+
+        assert cell['cell_type'] in ['markdown', 'code']
+        assert isinstance(cell['metadata'], dict)
+        assert isinstance(cell['source'], list)
+
 class IPythonNotebook:
     """Notebook Container"""
     def __init__(self, fname: str = None):
@@ -54,6 +86,21 @@ class IPythonNotebook:
         
         if self.data.get('metadata', {}) == {}:
             self.data['metadata'] = _DEFAULT_METADATA_
+
+    def add_cell(
+        self, 
+        cell_type,
+        source,
+        metadata: dict = None
+    ):
+        cell = IPythonCell()
+        cell.cell_type = cell_type
+        cell.source = source
+        cell.metadata = metadata if metadata == None else {}
+        cell.outputs = []
+        cell.execution_count = 0
+        self.data['cells'].append(cell)
+        return 
 
     def read(self, fname: str) -> dict:
         """Reads a IPython Notebook"""
@@ -97,35 +144,3 @@ class IPythonNotebook:
 
         assert isinstance(data['nbformat'], int)
         assert isinstance(data['nbformat_minor'], int)
-
-class IPythonCell:
-    def __init__(self, cell: dict = None):
-        if cell == None:
-            self.cell_type = None
-            self.metadata = {}
-            self.source = []
-            self.outputs = []
-            self.execution_count = 0
-        else:
-            self.validate(cell)
-            self.cell_type = cell['cell_type']
-            self.metadata = cell['metadata']
-            self.source = cell['source']
-            self.outputs = cell.get('outputs', [])
-            self.execution_count = cell.get('execution_count', 0)
-
-        if self.cell_type == 'markdown':
-            if hasattr(self, 'outputs'):
-                del self.outputs
-            if hasattr(self, 'execution_count'):
-                del self.execution_count
-
-    def validate(self, cell: dict):
-        try:
-            assert [i in _CELL_KEYS_ for i in cell.keys()]
-        except AssertionError:
-            raise TypeError(f'{cell.keys()} are not in {_CELL_KEYS_}')
-
-        assert cell['cell_type'] in ['markdown', 'code']
-        assert isinstance(cell['metadata'], dict)
-        assert isinstance(cell['source'], list)

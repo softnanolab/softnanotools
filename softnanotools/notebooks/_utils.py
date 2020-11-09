@@ -20,3 +20,4 @@ class IPythonTools:
         if out:
             output.write(out)
         return output
+        
