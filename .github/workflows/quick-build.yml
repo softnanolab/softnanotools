@@ -1,6 +1,6 @@
 # Builds using pip and tests using pytest
 
-name: Quick Build
+name: Build
 
 on: push
 
