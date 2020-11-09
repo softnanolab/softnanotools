@@ -18,7 +18,7 @@ classes:
     IPythonTools - a class full of static methods
 
 """
-from ._core import IPythonCell, IPythonNotebook
+from ._core import IPythonCell, IPythonNotebook, MARKDOWN, CODE
 from ._utils import IPythonTools
 
 merge = IPythonTools.merge
