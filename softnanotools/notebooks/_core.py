@@ -39,6 +39,9 @@ _DEFAULT_METADATA_ = {
     }
 }
 
+CODE = 'code'
+MARKDOWN = 'markdown'
+
 class IPythonCell:
     def __init__(self, cell: dict = None):
         if cell == None:
@@ -55,7 +58,7 @@ class IPythonCell:
             self.outputs = cell.get('outputs', [])
             self.execution_count = cell.get('execution_count', 0)
 
-        if self.cell_type == 'markdown':
+        if self.cell_type == MARKDOWN:
             if hasattr(self, 'outputs'):
                 del self.outputs
             if hasattr(self, 'execution_count'):
@@ -67,7 +70,7 @@ class IPythonCell:
         except AssertionError:
             raise TypeError(f'{cell.keys()} are not in {_CELL_KEYS_}')
 
-        assert cell['cell_type'] in ['markdown', 'code']
+        assert cell['cell_type'] in [MARKDOWN, CODE]
         assert isinstance(cell['metadata'], dict)
         assert isinstance(cell['source'], list)
 
@@ -94,12 +97,21 @@ class IPythonNotebook:
         metadata: dict = None
     ):
         cell = IPythonCell()
+        
+        # ensure cell type is correct
+        assert cell_type in [CODE, MARKDOWN]
         cell.cell_type = cell_type
+
+        # ensure source is a list
+        assert isinstance(cell.source, list)
         cell.source = source
-        cell.metadata = metadata if metadata == None else {}
+        if metadata:
+            cell.metadata = metadata
+        else:
+            cell.metadata = {}
         cell.outputs = []
         cell.execution_count = 0
-        self.data['cells'].append(cell)
+        self.data['cells'].append(vars(cell))
         return 
 
     def read(self, fname: str) -> dict:
