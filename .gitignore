@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 ### VisualStudioCode ###
-.vscode/*
+.vscode
 
 # exclude examples ipynbs
 examples/**/*.ipynb
