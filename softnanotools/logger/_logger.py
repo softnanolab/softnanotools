@@ -49,6 +49,14 @@ class Logger:
         ch.setFormatter(NewLineFormatter())
         self.logger.addHandler(ch)
 
+    @property
+    def level(self):
+        return self.logger.level
+
+    @level.setter
+    def level(self, value):
+        self.logger.setLevel(value)
+
     def debug(self, message):
         """Print a debug message for DEBUG_LEVEL<=10"""
         self.logger.debug(message)
