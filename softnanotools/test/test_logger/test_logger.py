@@ -1,7 +1,7 @@
 from softnanotools.logger import Logger
 
 def test_Logger():
-    logger = Logger(__name__))
+    logger = Logger(__name__)
     logger.debug('DEBUG')
     logger.info('INFO')
     logger.warning('WARNING')
@@ -9,5 +9,5 @@ def test_Logger():
     try:
         logger.kill('KILL')
     except SystemExit:
-        continue
+        logger.debug('Successfully caught kill')
     return
