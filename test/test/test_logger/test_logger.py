@@ -7,7 +7,10 @@ def test_Logger():
     logger.debug('DEBUG')
     logger.info('INFO')
     logger.warning('WARNING')
-    logger.error('ERROR')
+    try:
+        logger.error('ERROR')
+    except SystemError:
+        logger.debug('Successfully caught error')
     try:
         logger.kill('KILL')
     except SystemExit:

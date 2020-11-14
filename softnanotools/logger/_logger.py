@@ -72,6 +72,7 @@ class Logger:
     def error(self, message):
         """Print an error message for DEBUG_LEVEL<=40"""
         self.logger.error(message)
+        raise SystemError(message)
 
     def kill(self, message=''):
         """Kill program and print message for DEBUG_LEVEL<=50"""
