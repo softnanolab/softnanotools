@@ -4,14 +4,17 @@ This repository contains a bunch of tools for different programming applications
 
 ## Installation
 
-The package is not yet available on PyPi but will be shortly. For now usage can be done by cloning and using git.
+The package uses only the Python standard library so the only prerequisite is the use of Python 3.
 
-```
+Installing using:
+
+```sh
+# pip
+pip install softnanotools
+
+# manual
 git clone https://github.com/softnanolab/softnanotools
-pushd softnanotools
-pip install .
-pytest
-popd
+pip install ./softnanotools
 ```
 
 ## Modules
@@ -19,3 +22,5 @@ popd
 Here is a list of modules with a brief description:
 
 - `notebooks` - Tools for manipulating Jupyter Notebooks
+- `logger` - A logger that prints to screen
+- `runner` - A tool for organising the execution of programs
