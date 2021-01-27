@@ -25,4 +25,5 @@ def test_Runner():
 
     job = Job(5)
     job.execute()
+    job.execute(skip=1)
     return
