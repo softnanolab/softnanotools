@@ -1,6 +1,9 @@
 import logging
 import sys
 import os
+from pathlib import Path
+
+from typing import Union
 
 class NewLineFormatter(logging.Formatter):
     """Custom Formatter to allow newlines"""
@@ -37,7 +40,7 @@ class Logger:
         logger.error('Error Message')
         logger.kill('Error Message')
     """
-    def __init__(self, name: str):
+    def __init__(self, name: str, logfile: Union[str, Path] = None):
         """Initialise using filename or custom name"""
         if name == '__main__':
             name = 'root'
@@ -45,9 +48,23 @@ class Logger:
         self.logger.setLevel(
             int(os.environ.get('DEBUG_LEVEL', logging.INFO))
         )
+
+        # manage default logging to stdout
         ch = logging.StreamHandler()
         ch.setFormatter(NewLineFormatter())
         self.logger.addHandler(ch)
+
+        # >>> add option for file logging
+
+        # if not given try and get from environment variable
+        if not logfile:
+            logfile = os.environ.get('LOGFILE', False)
+
+        # create file handler (fh) and add to logger
+        if logfile:
+            fh = logging.FileHandler(logfile)
+            fh.setFormatter(NewLineFormatter())
+            self.logger.addHandler(fh)
 
     @property
     def level(self):
