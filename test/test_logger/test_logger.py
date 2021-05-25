@@ -21,7 +21,10 @@ def test_Logger():
 def test_Logger_with_filehandler():
     # initialise logger with file
     logfile = Path(__file__).parent / 'test.log'
-    logfile.unlink()
+    try:
+        logfile.unlink()
+    except FileNotFoundError:
+        print(f'Tried to delete {logfile} but it did not exist')
     logger = Logger(__name__, logfile=logfile)
 
     # do the same as above
