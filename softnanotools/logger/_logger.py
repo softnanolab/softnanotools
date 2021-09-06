@@ -1,3 +1,12 @@
+"""Container for the Logger class
+
+Classes:
+    Logger: tool for logging
+    NewLineFormatter: 
+        formatter for the logger, ensuring prefixes can be easily
+        added on each new line
+
+"""
 import logging
 import sys
 import os
@@ -30,15 +39,18 @@ class Logger:
     ```
     export DEBUG_LEVEL=10
     ```
+
+    Parameters:
+        name: name of the logger (appears in every message)
+        logfile: optional path to logfile where data will be written
     
-    Usage:
-        import softnanotools.logger
-        logger = softnanotools.logger.Logger(__name__)
-        logger.debug('Debug Message')
-        logger.info('Info Message')
-        logger.warning('Warning Message')
-        logger.error('Error Message')
-        logger.kill('Error Message')
+    >>> import softnanotools.logger
+    >>> logger = softnanotools.logger.Logger(__name__)
+    >>> logger.debug('Debug Message')
+    >>> logger.info('Info Message')
+    >>> logger.warning('Warning Message')
+    >>> logger.error('Error Message')
+    >>> logger.kill('Error Message')
     """
     def __init__(self, name: str, logfile: Union[str, Path] = None):
         """Initialise using filename or custom name"""
