@@ -20,4 +20,10 @@ setuptools.setup(
     python_requires=">=3.5",
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
+    entry_points={
+        'console_scripts': [
+            'softnanotools=softnanotools.cli:main',
+            'softnanotools.generate=softnanotools.generate.cli:main',
+        ],
+    },
 )
