@@ -58,6 +58,10 @@ class ComponentContainer:
             f"{INDENT}return\n"
         )
 
+class FileContainer:
+    def __init__(self, name: str):
+        self.name = name
+
 
 if __name__ == '__main__':
     import doctest
