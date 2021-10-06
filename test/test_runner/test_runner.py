@@ -26,6 +26,7 @@ def test_Runner():
     job = Job(5)
     job.execute()
     job.execute(skip=1)
+    job.execute(skip=[0, 1])
     return
 
 def test_Runner_timer():
