@@ -33,10 +33,13 @@ class Runner:
                 set to True for a timed summary
         """
         # initialise Timer object (or fake proxy)
+        def proxy(fn, *args, code: int = -1, **kwargs):
+            return fn(*args, **kwargs)
+
         if time:
             timer = Timer()
         else:
-            timer = lambda i, x: x
+            timer = proxy
 
         # run a non-wrapped version of the tasks for simplicity
         if not skip and not time:
@@ -56,7 +59,7 @@ class Runner:
             else:
                 for i, task in self.__tasks__.items():
                     if i == skip: continue
-                    timer(i, task, self)
+                    timer(task, self, code=i)
 
         if time:
             logger.info(timer.summary)

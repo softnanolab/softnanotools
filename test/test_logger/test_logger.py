@@ -43,17 +43,19 @@ def test_Logger_with_filehandler():
         logger.debug('Successfully caught kill')
 
     # check expected output with details of file
+    with open(logfile, 'r') as f:
+        logger_name = f.readline().split()[1]
 
     expected_output = [
-        "DEBUG: [test.test_logger.test_logger] DEBUG\n",
-        "INFO: [test.test_logger.test_logger] INFO\n",
-        "WARNING: [test.test_logger.test_logger] WARNING\n",
-        "ERROR: [test.test_logger.test_logger] ERROR\n",
-        "DEBUG: [test.test_logger.test_logger] Successfully caught error\n",
-        "CRITICAL: [test.test_logger.test_logger] KILL\n",
-        "DEBUG: [test.test_logger.test_logger] Successfully caught kill\n",
+        f"DEBUG: {logger_name} DEBUG\n",
+        f"INFO: {logger_name} INFO\n",
+        f"WARNING: {logger_name} WARNING\n",
+        f"ERROR: {logger_name} ERROR\n",
+        f"DEBUG: {logger_name} Successfully caught error\n",
+        f"CRITICAL: {logger_name} KILL\n",
+        f"DEBUG: {logger_name} Successfully caught kill\n",
     ]
-    
+
     with open(logfile, 'r') as f:
         for i, line in enumerate(f.readlines()):
             assert expected_output[i] == line

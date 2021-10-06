@@ -10,7 +10,7 @@ class Timer():
         self.times = {}
         self.names = {}
 
-    def __call__(self, fn, code: Any = None, *args, **kwargs):
+    def __call__(self, fn, *args, code: Any = None, **kwargs):
         start = time.perf_counter()
         result = fn(*args, **kwargs)
         end = time.perf_counter()
