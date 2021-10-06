@@ -3,12 +3,14 @@ import argparse
 from ..logger import Logger
 logger = Logger(__name__)
 
-from . import _script
+from . import _script, _module
 
 def run(command: str, kind: str, name: str, **kwargs):
     assert command == 'generate'
     if kind == 'script':
         _script.generate(name)
+    elif kind == 'module':
+        _module.generate(name)
     return
 
 def main():
