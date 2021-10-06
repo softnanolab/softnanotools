@@ -51,6 +51,5 @@ def test_Runner_timer():
             return "Step 2"
 
     job = Job(5)
-    job.execute()
-    job.execute(skip=1, time=True)
+    job.execute(time=True)
     return
