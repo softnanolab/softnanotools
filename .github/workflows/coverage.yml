@@ -2,9 +2,11 @@
 
 name: Coverage
 
-on: 
+on:
   push:
     branches: [main, coverage*, test*]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
@@ -23,5 +25,6 @@ jobs:
       run: |
         pip install pytest pytest-cov
         pytest --cov-report=xml --cov=softnanotools
-        bash <(curl -s https://codecov.io/bash)
-        
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov -t ${CODECOV_TOKEN}
