@@ -22,7 +22,16 @@ class ComponentContainer:
     )
 
     def __init__(self, name: str):
-        self.name = name
+        self._name = name
+
+    @property
+    def name(self) -> str:
+        split = self._name.split('.')
+        if split[-1] == 'py':
+            name = '.'.join(split[:-1])
+        else:
+            name = self._name
+        return name
 
     @property
     def description(self) -> str:
