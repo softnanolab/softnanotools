@@ -14,6 +14,7 @@ _CLI_MAP = {
 def main():
     parser = argparse.ArgumentParser(description=_DESCRIPTION)
     parser.add_argument('command')
+    parser.add_argument('args', nargs='+', metavar='args')
     args = parser.parse_args()
-    _CLI_MAP[args.command](**vars(args))
+    _CLI_MAP[args.command](args.command, *args.args)
     return
