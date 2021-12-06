@@ -29,14 +29,9 @@ class Script(ComponentContainer):
         return result
 
 def generate(name: str, **kwargs):
-    if name.split('.')[-1] != 'py':
-        fname = Path(f'{name}.py')
-    else:
-        fname = Path(name)
 
     script = Script(name)
-
-    with open(fname, 'w') as f:
+    with open(script.path, 'w') as f:
         f.write(script.string)
 
     return
