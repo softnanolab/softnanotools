@@ -8,7 +8,7 @@ logger = Logger(__name__)
 from ._components import ComponentContainer
 
 class Module(ComponentContainer):
-    def __init__(self, name):
+    def __init__(self, name: Union[str, Path]):
         super().__init__(name)
 
     @property
@@ -23,14 +23,9 @@ class Module(ComponentContainer):
         return result
 
 def generate(name: str, **kwargs):
-    if name.split('.')[-1] != 'py':
-        fname = Path(f'{name}.py')
-    else:
-        fname = Path(name)
 
     module = Module(name)
-
-    with open(fname, 'w') as f:
+    with open(module.path, 'w') as f:
         f.write(module.string)
 
     return

@@ -2,6 +2,7 @@
 """A module containing the common string-components found in Python
 files
 """
+from pathlib import Path
 INDENT = '    '
 
 class ComponentContainer:
@@ -22,7 +23,9 @@ class ComponentContainer:
     )
 
     def __init__(self, name: str):
-        self._name = name
+        name = Path(name)
+        self._path = Path(name)
+        self._name = self._path.name
 
     @property
     def name(self) -> str:
@@ -32,6 +35,10 @@ class ComponentContainer:
         else:
             name = self._name
         return name
+
+    @property
+    def path(self) -> Path:
+        return self._path.parent / f'{self.name}.py'
 
     @property
     def description(self) -> str:
