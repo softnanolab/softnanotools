@@ -26,7 +26,7 @@ def generate(
 
     if not __INIT__.exists():
         with open(__INIT__, 'w') as f:
-            f.write(f"""Welcome to {name}!\n""")
+            f.write(f'"""Welcome to {name}!\n"""')
 
     for m in modules:
         components = m.split('.')
