@@ -33,6 +33,8 @@ class TestContainer(ComponentContainer):
         string = ""
         for c in self._classes:
             string.append(f"\t{c}\n")
+        for f in self._functions:
+            string.append(f"\t{f}\n")
         result = (
             f"from {self.module} import (\n{string}\n)"
         )
@@ -83,6 +85,14 @@ class TestGenerator:
             with open(self.folder / container.path, 'w') as f:
                 f.write(container.string)
         return
+
+def generate(packages: List[str]):
+    """Creates a directory called 'test', and iterates through each
+    package, finds all of the nested packages and modules, and then
+    creates a list of <package>.<module> strings, reads the functions
+    and classes present in each <package>.<module> and creates tests
+    for all of them, if they aren't already present."""
+    return
 
 if __name__ == '__main__':
     import doctest
