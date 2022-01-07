@@ -43,11 +43,15 @@ class TestContainer(ComponentContainer):
     @property
     def classes(self) -> str:
         result = ""
+        for c in self._classes:
+            result.append(f"def test_{c}():\n\treturn\n\n")
         return result
 
     @property
     def functions(self) -> str:
         result = ""
+        for f in self._functions:
+            result.append(f"def test_{f}():\n\treturn\n\n")
         return result
 
     @property
