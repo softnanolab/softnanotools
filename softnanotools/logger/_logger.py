@@ -57,6 +57,7 @@ class Logger:
         if name == '__main__':
             name = 'root'
         self.logger = logging.getLogger(name)
+        self.logger.propagate = False
         self.logger.setLevel(
             int(os.environ.get('DEBUG_LEVEL', logging.INFO))
         )
