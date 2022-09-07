@@ -1,0 +1,21 @@
+# Builds using pip and tests using pytest
+
+name: Documentation
+
+on:
+  push:
+    branches: [main, docs, documentation]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Update Dependencies
+      run: pip install --upgrade pip setuptools wheel sphinx piccolo-theme
+    - name: Build docs
+      run: cd docs && make html
