@@ -1,19 +1,41 @@
+"""
+Container for the Runner class
+"""
 import functools
-from typing import Any, Iterable
+from typing import Any, Iterable, Callable
 
 from ..timer import Timer
 from ..logger import Logger
 logger = Logger(__name__)
 
 class Runner:
+    """Subclass the Runner class to create a customisable
+    runner, akin to those found in continuous integration systems
 
+    >>> class MyRunner(Runner):
+    >>>     def __init__(self):
+    >>>         super().__init__()
+    """
     __tasks__ = {}
 
-    def add_task(self, code, function):
+    def add_task(self, code: int, function: Callable):
+        """Adds a function to the list of tasks
+
+        Params:
+            code: ID of the task
+            function: thing to call during `Runner.execute`
+        """
         self.__tasks__[code] = function
 
     @classmethod
     def task(cls, code: int):
+        """Decorate a method with `@Runner.task(code: int)` to allocate it
+        to the list of tasks to run. Use the code to chose the order 
+        which occurs in ascending values
+
+        Parameters:
+            code: ID of the task
+        """
         def outer(func):
             cls.add_task(cls, code, func)
             @functools.wraps(func)

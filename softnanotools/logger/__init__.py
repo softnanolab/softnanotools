@@ -8,8 +8,8 @@ However, building loggers to use within packages is
 not trivial. To manage this, we have a simple logger
 which is initialised at the start of a file.
 
-classes:
-    Logger - A logger for printing to the terminal
+Classes:
+    Logger: A logger for printing to the terminal
 
 """
 
