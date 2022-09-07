@@ -13,6 +13,8 @@ def run(
     modules: List[str] = None,
     packages: List[str] = None,
     github_actions: bool = False,
+    code_cov: bool = False,
+    no_versioneer: bool = False,
     tests: bool = False,
     **kwargs
 ):
@@ -36,6 +38,8 @@ def run(
             packages=packages,
             modules=modules,
             github_actions=github_actions,
+            code_cov=code_cov,
+            versioneer=not no_versioneer
         )
     return
 
