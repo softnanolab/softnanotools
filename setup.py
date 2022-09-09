@@ -1,7 +1,7 @@
 import setuptools
 import versioneer
 
-with open("README.md", "r", encoding='utf-8') as f:
+with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setuptools.setup(
@@ -21,9 +21,9 @@ setuptools.setup(
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     entry_points={
-        'console_scripts': [
-            'softnanotools=softnanotools.cli:main',
-            'softnanotools.generate=softnanotools.generate.cli:main',
+        "console_scripts": [
+            "softnanotools=softnanotools.cli:main",
+            "softnanotools.generate=softnanotools.generate.cli:main",
         ],
     },
 )
