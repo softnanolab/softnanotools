@@ -3,15 +3,14 @@
 from pathlib import Path
 from typing import Iterable, List
 from softnanotools.logger import Logger
+
 logger = Logger(__name__)
 
 import softnanotools.generate._module as module
 
+
 def generate(
-    name: str,
-    modules: List[str] = ['example'],
-    packages: List[str] = None,
-    **kwargs
+    name: str, modules: List[str] = ["example"], packages: List[str] = None, **kwargs
 ):
     """"""
     if modules == None:
@@ -22,14 +21,14 @@ def generate(
     package = Path(name)
     package.mkdir(exist_ok=True)
 
-    __INIT__ = package / '__init__.py'
+    __INIT__ = package / "__init__.py"
 
     if not __INIT__.exists():
-        with open(__INIT__, 'w') as f:
+        with open(__INIT__, "w") as f:
             f.write(f'"""Welcome to {name}!\n"""')
 
     for m in modules:
-        components = m.split('.')
+        components = m.split(".")
         if len(components) > 1:
             logger.debug(f"For module {m}, created components: {components}")
             for p in components[:-2]:
@@ -40,6 +39,8 @@ def generate(
 
     return
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     import doctest
+
     doctest.testmod()

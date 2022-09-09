@@ -3,9 +3,11 @@
 import time
 from typing import Any
 from ..logger import Logger
+
 logger = Logger(__name__)
 
-class Timer():
+
+class Timer:
     def __init__(self):
         self.times = {}
         self.names = {}
@@ -30,9 +32,6 @@ class Timer():
             f"{'Code':<9}{'Name':<16}{'Time':<6}\n"
         )
         for key in self.times:
-            result += (
-                f"<{key:.>5}>  {self.names[key]:<15}"
-                f" {self.times[key]:.6f}s\n"
-            )
+            result += f"<{key:.>5}>  {self.names[key]:<15}" f" {self.times[key]:.6f}s\n"
         result += "----------------------------------"
         return result

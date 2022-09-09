@@ -3,9 +3,11 @@ from pathlib import Path
 from typing import Union
 
 from ..logger import Logger
+
 logger = Logger(__name__)
 
 from ._components import ComponentContainer
+
 
 class Script(ComponentContainer):
     def __init__(self, name):
@@ -13,8 +15,8 @@ class Script(ComponentContainer):
 
     @property
     def logger(self) -> str:
-        _logger_name = self.name.upper().replace('_', ' ').replace('-', ' ')
-        return super().logger.replace('__name__', f"'{_logger_name}'")
+        _logger_name = self.name.upper().replace("_", " ").replace("-", " ")
+        return super().logger.replace("__name__", f"'{_logger_name}'")
 
     @property
     def string(self) -> str:
@@ -28,10 +30,11 @@ class Script(ComponentContainer):
         )
         return result
 
+
 def generate(name: str, **kwargs):
 
     script = Script(name)
-    with open(script.path, 'w') as f:
+    with open(script.path, "w") as f:
         f.write(script.string)
 
     return

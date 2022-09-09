@@ -3,7 +3,9 @@
 files
 """
 from pathlib import Path
-INDENT = '    '
+
+INDENT = "    "
+
 
 class ComponentContainer:
     """Container for different components used in auto-generated Python
@@ -12,15 +14,11 @@ class ComponentContainer:
     Arguments:
         name: name of the file being generated (excluding .py)
     """
+
     shebang = "#!/usr/bin/env python"
 
-    if_name_statement = (
-        "if __name__ == '__main__':"
-    )
-    doctest_string = (
-        f'{INDENT}import doctest\n'
-        f'{INDENT}doctest.testmod()'
-    )
+    if_name_statement = "if __name__ == '__main__':"
+    doctest_string = f"{INDENT}import doctest\n" f"{INDENT}doctest.testmod()"
 
     def __init__(self, name: str):
         name = Path(name)
@@ -29,16 +27,16 @@ class ComponentContainer:
 
     @property
     def name(self) -> str:
-        split = self._name.split('.')
-        if split[-1] == 'py':
-            name = '.'.join(split[:-1])
+        split = self._name.split(".")
+        if split[-1] == "py":
+            name = ".".join(split[:-1])
         else:
             name = self._name
         return name
 
     @property
     def path(self) -> Path:
-        return self._path.parent / f'{self.name}.py'
+        return self._path.parent / f"{self.name}.py"
 
     @property
     def description(self) -> str:
@@ -46,10 +44,7 @@ class ComponentContainer:
 
     @property
     def logger(self) -> str:
-        return (
-            "from softnanotools.logger import Logger\n"
-            "logger = Logger(__name__)\n"
-        )
+        return "from softnanotools.logger import Logger\n" "logger = Logger(__name__)\n"
 
     @property
     def docstring(self) -> str:
@@ -74,11 +69,13 @@ class ComponentContainer:
             f"{INDENT}return\n"
         )
 
+
 class FileContainer:
     def __init__(self, name: str):
         self.name = name
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import doctest
+
     doctest.testmod()

@@ -6,7 +6,9 @@ from typing import Any, Iterable, Callable
 
 from ..timer import Timer
 from ..logger import Logger
+
 logger = Logger(__name__)
+
 
 class Runner:
     """Subclass the Runner class to create a customisable
@@ -16,6 +18,7 @@ class Runner:
     >>>     def __init__(self):
     >>>         super().__init__()
     """
+
     __tasks__ = {}
 
     def add_task(self, code: int, function: Callable):
@@ -30,18 +33,22 @@ class Runner:
     @classmethod
     def task(cls, code: int):
         """Decorate a method with `@Runner.task(code: int)` to allocate it
-        to the list of tasks to run. Use the code to chose the order 
+        to the list of tasks to run. Use the code to chose the order
         which occurs in ascending values
 
         Parameters:
             code: ID of the task
         """
+
         def outer(func):
             cls.add_task(cls, code, func)
+
             @functools.wraps(func)
             def wrapper(cls, *args, **kwargs):
                 return func(cls, *args, **kwargs)
+
             return wrapper
+
         return outer
 
     def execute(self, skip: Iterable[Any] = None, time: bool = False):
@@ -74,13 +81,15 @@ class Runner:
             # if skipping is true
             if isinstance(skip, Iterable):
                 for i, task in self.__tasks__.items():
-                    if i in skip: continue
+                    if i in skip:
+                        continue
                     timer(i, task, self)
 
             # otherwise just the timer
             else:
                 for i, task in self.__tasks__.items():
-                    if i == skip: continue
+                    if i == skip:
+                        continue
                     timer(task, self, code=i)
 
         if time:

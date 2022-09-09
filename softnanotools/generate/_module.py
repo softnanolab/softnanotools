@@ -3,9 +3,11 @@ from pathlib import Path
 from typing import Union
 
 from ..logger import Logger
+
 logger = Logger(__name__)
 
 from ._components import ComponentContainer
+
 
 class Module(ComponentContainer):
     def __init__(self, name: Union[str, Path]):
@@ -22,10 +24,11 @@ class Module(ComponentContainer):
         )
         return result
 
+
 def generate(name: str, **kwargs):
 
     module = Module(name)
-    with open(module.path, 'w') as f:
+    with open(module.path, "w") as f:
         f.write(module.string)
 
     return

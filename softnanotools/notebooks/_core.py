@@ -21,18 +21,18 @@ _NBFORMAT_ = 4
 _NBFORMAT_MINOR_ = 4
 
 _CELL_KEYS_ = (
-    'cell_type',
-    'metadata',
-    'source',
-    'execution_count',
-    'outputs',
+    "cell_type",
+    "metadata",
+    "source",
+    "execution_count",
+    "outputs",
 )
 
 _MAIN_KEYS_ = (
-    'cells',
-    'metadata',
-    'nbformat',
-    'nbformat_minor',
+    "cells",
+    "metadata",
+    "nbformat",
+    "nbformat_minor",
 )
 
 _DEFAULT_METADATA_ = {
@@ -52,11 +52,12 @@ _DEFAULT_METADATA_ = {
         "nbconvert_exporter": "python",
         "pygments_lexer": "ipython3",
         "version": "3.7.6",
-    }
+    },
 }
 
-CODE = 'code'
-MARKDOWN = 'markdown'
+CODE = "code"
+MARKDOWN = "markdown"
+
 
 class IPythonCell:
     """A cell of an IPython Notebook
@@ -71,6 +72,7 @@ class IPythonCell:
     Methods:
         validate: check if a dictionary can make a valid cell
     """
+
     def __init__(self, cell: dict = None):
         if cell == None:
             self.cell_type = None
@@ -80,22 +82,22 @@ class IPythonCell:
             self.execution_count = 0
         else:
             self.validate(cell)
-            self.cell_type = cell['cell_type']
-            self.metadata = cell['metadata']
-            self.source = cell['source']
-            self.outputs = cell.get('outputs', [])
-            self.execution_count = cell.get('execution_count', 0)
+            self.cell_type = cell["cell_type"]
+            self.metadata = cell["metadata"]
+            self.source = cell["source"]
+            self.outputs = cell.get("outputs", [])
+            self.execution_count = cell.get("execution_count", 0)
 
         if self.cell_type == MARKDOWN:
-            if hasattr(self, 'outputs'):
+            if hasattr(self, "outputs"):
                 del self.outputs
-            if hasattr(self, 'execution_count'):
+            if hasattr(self, "execution_count"):
                 del self.execution_count
 
     @staticmethod
     def validate(cell: dict):
         """Check if a dictionary can be converted to a cell
-        
+
         Params:
             data: dictionary containing JSON data
 
@@ -105,15 +107,16 @@ class IPythonCell:
         try:
             assert [i in _CELL_KEYS_ for i in cell.keys()]
         except AssertionError:
-            raise TypeError(f'{cell.keys()} are not in {_CELL_KEYS_}')
+            raise TypeError(f"{cell.keys()} are not in {_CELL_KEYS_}")
 
-        assert cell['cell_type'] in [MARKDOWN, CODE]
-        assert isinstance(cell['metadata'], dict)
-        assert isinstance(cell['source'], list)
+        assert cell["cell_type"] in [MARKDOWN, CODE]
+        assert isinstance(cell["metadata"], dict)
+        assert isinstance(cell["source"], list)
+
 
 class IPythonNotebook:
     """Notebook Container
-    
+
     Parameters:
         fname: file name to read (optional)
 
@@ -127,26 +130,22 @@ class IPythonNotebook:
         validate: checks if a dictionary is a valid notebook
 
     """
+
     def __init__(self, fname: str = None):
         if fname:
             self.data = self.read(fname)
         else:
             self.data = {
-                'cells' : [],
-                'metadata' : {},
-                'nbformat' : _NBFORMAT_,
-                'nbformat_minor' : _NBFORMAT_MINOR_,
+                "cells": [],
+                "metadata": {},
+                "nbformat": _NBFORMAT_,
+                "nbformat_minor": _NBFORMAT_MINOR_,
             }
-        
-        if self.data.get('metadata', {}) == {}:
-            self.data['metadata'] = _DEFAULT_METADATA_
 
-    def add_cell(
-        self, 
-        cell_type: str,
-        source: List[str],
-        metadata: dict = None
-    ):
+        if self.data.get("metadata", {}) == {}:
+            self.data["metadata"] = _DEFAULT_METADATA_
+
+    def add_cell(self, cell_type: str, source: List[str], metadata: dict = None):
         """Add a cell to the notebook
 
         Params:
@@ -158,7 +157,7 @@ class IPythonNotebook:
             AssertionError: if any standards are not met
         """
         cell = IPythonCell()
-        
+
         # ensure cell type is correct
         assert cell_type in [CODE, MARKDOWN]
         cell.cell_type = cell_type
@@ -172,38 +171,38 @@ class IPythonNotebook:
             cell.metadata = {}
         cell.outputs = []
         cell.execution_count = 0
-        self.data['cells'].append(vars(cell))
-        return 
+        self.data["cells"].append(vars(cell))
+        return
 
     def read(self, fname: str) -> dict:
         """Reads a IPython Notebook
-        
+
         Params:
             fname: filepath of notebook
 
         Returns:
             Dictionary containing the data in the notebook
         """
-        with open(fname, 'r') as f:
+        with open(fname, "r") as f:
             data = json.load(f)
-        
+
         self.validate(data)
         return data
 
     def write(self, fname: str):
         """Writes instance to .ipynb file
-        
+
         Params:
             fname: filepath of output notebook
         """
-        with open(fname, 'w') as f:
+        with open(fname, "w") as f:
             json.dump(self.data, f, indent=2)
-            f.write('\n')
+            f.write("\n")
 
     @staticmethod
     def validate(data: dict):
         """Checks that a IPython Notebook is of a valid format
-        
+
         Params:
             data: dictionary containing JSON data
 
@@ -213,27 +212,26 @@ class IPythonNotebook:
         try:
             assert set(data.keys()) == set(_MAIN_KEYS_)
         except AssertionError:
-            raise AssertionError(f"Notebook keys are {set(data.keys())} but should be {_MAIN_KEYS_}")
-        assert isinstance(data['cells'], list)
-        assert set(data['metadata']) == {
-            'kernelspec',
-            'language_info'
-        }
-        assert set(data['metadata']['kernelspec']) == {
-            'display_name',
-            'language',
-            'name'
-        }
-
-        assert set(data['metadata']['language_info']) == {
-            'codemirror_mode', 
-            'file_extension', 
-            'mimetype', 
-            'name', 
-            'nbconvert_exporter', 
-            'pygments_lexer', 
-            'version',
+            raise AssertionError(
+                f"Notebook keys are {set(data.keys())} but should be {_MAIN_KEYS_}"
+            )
+        assert isinstance(data["cells"], list)
+        assert set(data["metadata"]) == {"kernelspec", "language_info"}
+        assert set(data["metadata"]["kernelspec"]) == {
+            "display_name",
+            "language",
+            "name",
         }
 
-        assert isinstance(data['nbformat'], int)
-        assert isinstance(data['nbformat_minor'], int)
+        assert set(data["metadata"]["language_info"]) == {
+            "codemirror_mode",
+            "file_extension",
+            "mimetype",
+            "name",
+            "nbconvert_exporter",
+            "pygments_lexer",
+            "version",
+        }
+
+        assert isinstance(data["nbformat"], int)
+        assert isinstance(data["nbformat_minor"], int)
