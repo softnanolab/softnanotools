@@ -1,11 +1,9 @@
 import argparse
 from typing import List
+from . import _script, _module, _package, _project, _tests
 
 from ..logger import Logger
-
 logger = Logger(__name__)
-
-from . import _script, _module, _package, _project, _tests
 
 
 def run(
@@ -20,9 +18,9 @@ def run(
     tests: bool = False,
     **kwargs
 ):
-    if modules == None:
+    if modules is None:
         modules = []
-    if packages == None:
+    if packages is None:
         packages = []
 
     assert command == "generate"

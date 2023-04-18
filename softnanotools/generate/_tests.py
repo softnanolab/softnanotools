@@ -3,23 +3,20 @@
 """
 from pathlib import Path
 from typing import List
-from softnanotools.logger import Logger
-
-logger = Logger(__name__)
-
 from ._components import ComponentContainer
-
+from softnanotools.logger import Logger
+logger = Logger(__name__)
 
 class TestContainer(ComponentContainer):
     def __init__(
         self, module: str, classes: List[str] = None, functions: List[str] = None
     ):
-        if classes == None:
+        if classes is None:
             self._classes = []
         else:
             self._classes = classes
 
-        if functions == None:
+        if functions is None:
             self._functions = []
         else:
             self._functions = classes

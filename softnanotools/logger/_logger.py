@@ -8,7 +8,6 @@ Classes:
 
 """
 import logging
-import sys
 import os
 from pathlib import Path
 

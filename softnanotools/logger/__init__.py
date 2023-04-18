@@ -13,4 +13,3 @@ Classes:
 
 """
 
-from ._logger import Logger

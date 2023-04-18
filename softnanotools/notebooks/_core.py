@@ -14,7 +14,6 @@ Classes:
     IPythonNotebook: Container for an IPython Notebook
 """
 import json
-from re import L
 from typing import List
 
 _NBFORMAT_ = 4
@@ -74,7 +73,7 @@ class IPythonCell:
     """
 
     def __init__(self, cell: dict = None):
-        if cell == None:
+        if cell is None:
             self.cell_type = None
             self.metadata = {}
             self.source = []

@@ -1,10 +1,9 @@
 import argparse
+from .generate.cli import run as generate_cli
 
 from .logger import Logger
-
 logger = Logger(__name__)
 
-from .generate.cli import run as generate_cli
 
 _DESCRIPTION = "Welcome to softnanotools CLI!"
 

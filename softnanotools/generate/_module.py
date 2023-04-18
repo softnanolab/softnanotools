@@ -1,13 +1,9 @@
 #!/usr/bin/env python
 from pathlib import Path
 from typing import Union
-
-from ..logger import Logger
-
-logger = Logger(__name__)
-
 from ._components import ComponentContainer
-
+from ..logger import Logger
+logger = Logger(__name__)
 
 class Module(ComponentContainer):
     def __init__(self, name: Union[str, Path]):
