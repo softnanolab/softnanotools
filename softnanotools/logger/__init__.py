@@ -12,4 +12,4 @@ Classes:
     Logger: A logger for printing to the terminal
 
 """
-
+from ._logger import Logger
