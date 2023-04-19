@@ -1,3 +1,4 @@
+"""Softnanotools CLI."""
 import argparse
 from .generate.cli import run as generate_cli
 
@@ -11,6 +12,7 @@ _CLI_MAP = {"generate": generate_cli}
 
 
 def main():
+    """Softnanotools CLI."""
     parser = argparse.ArgumentParser(description=_DESCRIPTION)
     parser.add_argument("command")
     parser.add_argument("args", nargs="+", metavar="args")

@@ -1,15 +1,13 @@
 #!/usr/bin/env python
-"""A module containing the common string-components found in Python
-files
-"""
+"""A module containing the common string-components found in Python files."""
+
 from pathlib import Path
 
 INDENT = "    "
 
 
 class ComponentContainer:
-    """Container for different components used in auto-generated Python
-    files
+    """Container for different components used in auto-generated Python files.
 
     Arguments:
         name: name of the file being generated (excluding .py)

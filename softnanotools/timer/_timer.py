@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Timer classes with in-built summaries"""
+"""Timer classes with in-built summaries."""
 import time
 from typing import Any
 from ..logger import Logger

@@ -1,6 +1,4 @@
-"""
-Container for the Runner class
-"""
+"""Container for the Runner class."""
 import functools
 from typing import Any, Iterable, Callable
 
@@ -12,7 +10,7 @@ logger = Logger(__name__)
 
 class Runner:
     """Subclass the Runner class to create a customisable
-    runner, akin to those found in continuous integration systems
+    runner, akin to those found in continuous integration systems.
 
     >>> class MyRunner(Runner):
     >>>     def __init__(self):
@@ -22,7 +20,7 @@ class Runner:
     __tasks__ = {}
 
     def add_task(self, code: int, function: Callable):
-        """Adds a function to the list of tasks
+        """Adds a function to the list of tasks.
 
         Params:
             code: ID of the task
@@ -32,9 +30,10 @@ class Runner:
 
     @classmethod
     def task(cls, code: int):
-        """Decorate a method with `@Runner.task(code: int)` to allocate it
-        to the list of tasks to run. Use the code to chose the order
-        which occurs in ascending values
+        """Allocate to the list of tasks to run.
+
+        Decorate a method with `@Runner.task(code: int)` to use the code to
+        choose the order which occurs in ascending values.
 
         Parameters:
             code: ID of the task
@@ -53,7 +52,7 @@ class Runner:
 
     def execute(self, skip: Iterable[Any] = None, time: bool = False):
         """Execute the Runner by iterating over all tasks and calling
-        them
+        them.
 
         Arguments:
             skip:

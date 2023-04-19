@@ -1,5 +1,4 @@
-"""
-The `logger` module contains a logger class that
+"""The `logger` module contains a logger class that
 allows users to simply track their code by including
 statements that are printed to the terminal.
 

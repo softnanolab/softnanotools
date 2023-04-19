@@ -1,4 +1,4 @@
-"""Jupyter and IPython Notebook Tools
+"""Jupyter and IPython Notebook Tools.
 
 Classes:
     IPythonTools: A collection of tools for manipulating IPython notebooks
@@ -8,11 +8,11 @@ from typing import List
 
 
 class IPythonTools:
-    """A container for tools for manipulating IPython Notebooks"""
+    """A container for tools for manipulating IPython Notebooks."""
 
     @staticmethod
     def merge(files: List[str], out: str = None, **kwargs):
-        """Merge a list of IPython files
+        """Merge a list of IPython files.
 
         Params:
             files: list of filepaths (useful with wildcards or globs)

@@ -1,5 +1,7 @@
 [tool.ruff]
 ignore-init-module-imports = true
+select = ["D", "E", "F"]
+ignore = ["D205"]
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401"]

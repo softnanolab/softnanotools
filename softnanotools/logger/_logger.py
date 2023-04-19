@@ -1,4 +1,4 @@
-"""Container for the Logger class
+"""Container for the Logger class.
 
 Classes:
     Logger: tool for logging
@@ -15,14 +15,14 @@ from typing import Union
 
 
 class NewLineFormatter(logging.Formatter):
-    """Custom Formatter to allow newlines"""
+    """Custom Formatter to allow newlines."""
 
     def __init__(self):
-        """Initialise with normal logging format string"""
+        """Initialise with normal logging format string."""
         logging.Formatter.__init__(self, "%(levelname)s: [%(name)s] %(message)s")
 
     def format(self, record) -> str:
-        """Formatter to ensure that new lines include the prefix"""
+        """Formatter to ensure that new lines include the prefix."""
         msg = logging.Formatter.format(self, record)
 
         if record.message != "":
@@ -33,7 +33,7 @@ class NewLineFormatter(logging.Formatter):
 
 
 class Logger:
-    """Smart logger with formatting
+    """Smart logger with formatting.
 
     The default logging level is INFO, to allow debug
     statements, create the following environment variable
@@ -55,7 +55,7 @@ class Logger:
     """
 
     def __init__(self, name: str, logfile: Union[str, Path] = None):
-        """Initialise using filename or custom name"""
+        """Initialise using filename or custom name."""
         if name == "__main__":
             name = "root"
         self.logger = logging.getLogger(name)
@@ -88,23 +88,23 @@ class Logger:
         self.logger.setLevel(value)
 
     def debug(self, message):
-        """Print a debug message for DEBUG_LEVEL<=10"""
+        """Print a debug message for DEBUG_LEVEL<=10."""
         self.logger.debug(message)
 
     def info(self, message):
-        """Print an info message for DEBUG_LEVEL<=20"""
+        """Print an info message for DEBUG_LEVEL<=20."""
         self.logger.info(message)
 
     def warning(self, message):
-        """Print a warning message for DEBUG_LEVEL<=30"""
+        """Print a warning message for DEBUG_LEVEL<=30."""
         self.logger.warning(message)
 
     def error(self, message):
-        """Print an error message for DEBUG_LEVEL<=40"""
+        """Print an error message for DEBUG_LEVEL<=40."""
         self.logger.error(message)
         raise SystemError(message)
 
     def kill(self, message=""):
-        """Kill program and print message for DEBUG_LEVEL<=50"""
+        """Kill program and print message for DEBUG_LEVEL<=50."""
         self.logger.critical(message)
         raise SystemExit(message)

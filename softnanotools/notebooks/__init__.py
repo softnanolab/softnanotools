@@ -1,5 +1,4 @@
-"""
-The `notebooks` module contains tools for importing and
+"""The `notebooks` module contains tools for importing and
 scripting the generation of Jupyter Notebooks.
 
 To a computer scientist Jupyter Notebooks are nothing 

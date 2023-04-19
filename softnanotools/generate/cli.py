@@ -1,3 +1,4 @@
+"""Softnanotools Command-Line Interface (CLI)."""
 import argparse
 from typing import List
 from . import _script, _module, _package, _project, _tests
@@ -18,6 +19,7 @@ def run(
     tests: bool = False,
     **kwargs
 ):
+    """Run the softnanotools.[command] command from the terminal."""
     if modules is None:
         modules = []
     if packages is None:
@@ -45,6 +47,7 @@ def run(
 
 
 def main():
+    """Run the softnanotools.[command] command from the terminal."""
     parser = argparse.ArgumentParser()
     parser.add_argument("kind")
     parser.add_argument("name")
