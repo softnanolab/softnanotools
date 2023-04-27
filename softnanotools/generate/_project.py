@@ -48,7 +48,12 @@ def generate(
         "setup.py",
         "README.md",
         "setup.cfg",
+        "_version.py"
     ]
+
+    folders = {
+        '_version.py': root / name
+    }
 
     # loop over files
     for fname in filenames:
@@ -59,7 +64,13 @@ def generate(
         logger.debug(templates[fname])
 
         # write template to file
-        write_template(root, fname, templates[fname])
+        write_template(
+            folders.get(fname, root), # use root folder if custom not specified
+            fname,
+            templates[fname]
+        )
+
+
 
     return
 
