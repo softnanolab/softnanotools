@@ -10,6 +10,7 @@ logger = Logger(__name__)
 ASSETS = Path(__file__).parent / "assets"
 
 def execute_template(fname: str, **kwargs) -> str:
+    """Takes template from ASSETS folder and formats it with arguments"""
     # copy template from assets folder
     with open(ASSETS / f"{fname}.template", "r") as f:
         result = f.read()
@@ -17,10 +18,11 @@ def execute_template(fname: str, **kwargs) -> str:
     return result
 
 def write_template(folder: Union[str, Path], fname: str, content: str):
+    """Writes template to file in a project directory"""
     # write target file to dest
-        with open(folder / fname, "w") as f:
-            # write templated version with {subs} substitution rules
-            f.write(content)
+    with open(folder / fname, "w") as f:
+        # write templated version with {subs} substitution rules
+        f.write(content)
 
 def generate(
     name,
