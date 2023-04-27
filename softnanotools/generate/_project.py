@@ -9,11 +9,18 @@ logger = Logger(__name__)
 
 ASSETS = Path(__file__).parent / "assets"
 
-def execute_template(fname: str) -> str:
-    return
+def execute_template(fname: str, **kwargs) -> str:
+    # copy template from assets folder
+    with open(ASSETS / f"{fname}.template", "r") as f:
+        result = f.read()
+        result.format(**kwargs)
+    return result
 
-def write_template(folder: Union[str, Path], fname: str):
-    return
+def write_template(folder: Union[str, Path], fname: str, content: str):
+    # write target file to dest
+        with open(folder / fname, "w") as f:
+            # write templated version with {subs} substitution rules
+            f.write(content)
 
 def generate(
     name,
@@ -45,24 +52,15 @@ def generate(
 
     # loop over files
     for fname in filenames:
-
-        # copy template from assets folder
-        with open(ASSETS / f"{fname}.template", "r") as f:
-            templates[f"{fname}"] = f.read()
+        # get templated string to write
+        templates[fname] = execute_template(fname, **{'name': name})
 
         # add debug statement
-        logger.debug(templates[f"{fname}"])
+        logger.debug(templates[fname])
 
-        # create target file
-        with open(root / f"{fname}", "w") as f:
-            # write templated version with {subs} substitution rules
-            f.write(
-                templates[f"{fname}"].format(
-                    **{
-                        'name': name,
-                    }
-                )
-            )
+        # write template to file
+        write_template(root, fname, templates[fname])
+
     return
 
 
