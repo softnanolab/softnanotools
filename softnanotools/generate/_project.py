@@ -19,6 +19,8 @@ def execute_template(fname: str, **kwargs) -> str:
 
 def write_template(folder: Union[str, Path], fname: str, content: str):
     """Writes template to file in a project directory"""
+    # create folder if it doesn't exist
+    folder.mkdir(parents=True, exist_ok=True)
     # write target file to dest
     with open(folder / fname, "w") as f:
         # write templated version with {subs} substitution rules
@@ -56,11 +58,15 @@ def generate(
         "_version.py",
         "MANIFEST.in",
         ".gitignore",
-        "pyproject.toml"
+        "pyproject.toml",
+        "quick-build.yml",
+        "coverage.yml",
     ]
 
     folders = {
-        '_version.py': root / name
+        '_version.py': root / name,
+        'quick-build.yml': root / '.github' / 'workflows',
+        'coverage.yml': root / '.github' / 'workflows',
     }
 
     # loop over files

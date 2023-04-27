@@ -1,0 +1,30 @@
+# Builds using pip and tests using pytest
+
+name: Coverage
+
+on:
+  push:
+    branches: [main, coverage*, test*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Update Dependencies
+      run: pip install --upgrade pip setuptools wheel
+    - name: Install
+      run: pip install .
+    - name: Test
+      run: |
+        pip install pytest pytest-cov
+        pytest --cov-report=xml --cov={name}
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov -t ${{CODECOV_TOKEN}}
