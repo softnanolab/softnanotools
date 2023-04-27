@@ -45,6 +45,9 @@ def generate(
     # create main package
     _package.generate(root / name, modules=modules, packages=packages)
 
+    # create test package
+    _package.generate(root / 'test', modules=[f"test_{name}"])
+
     # create list of files to generate
     filenames = [
         "setup.py",
