@@ -61,6 +61,7 @@ def generate(
         "pyproject.toml",
         "quick-build.yml",
         "coverage.yml",
+        ".pre-commit-config.yml"
     ]
 
     folders = {
