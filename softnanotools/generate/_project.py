@@ -14,7 +14,7 @@ def execute_template(fname: str, **kwargs) -> str:
     # copy template from assets folder
     with open(ASSETS / f"{fname}.template", "r") as f:
         result = f.read()
-        result.format(**kwargs)
+        result = result.format(**kwargs)
     return result
 
 def write_template(folder: Union[str, Path], fname: str, content: str):
@@ -50,7 +50,8 @@ def generate(
         "setup.py",
         "README.md",
         "setup.cfg",
-        "_version.py"
+        "_version.py",
+        "MANIFEST.in",
     ]
 
     folders = {
@@ -60,7 +61,7 @@ def generate(
     # loop over files
     for fname in filenames:
         # get templated string to write
-        templates[fname] = execute_template(fname, **{'name': name})
+        templates[fname] = execute_template(fname, name=name)
 
         # add debug statement
         logger.debug(templates[fname])
