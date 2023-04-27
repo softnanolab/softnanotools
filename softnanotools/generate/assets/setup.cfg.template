@@ -1,8 +1,8 @@
 [versioneer]
 VCS = git
 style = pep440
-versionfile_source = softnanotools/_version.py
-versionfile_build = softnanotools/_version.py
+versionfile_source = {name}/_version.py
+versionfile_build = {name}/_version.py
 tag_prefix = v
 
 # .coveragerc to control coverage.py
