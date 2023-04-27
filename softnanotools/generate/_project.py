@@ -52,6 +52,7 @@ def generate(
         "setup.cfg",
         "_version.py",
         "MANIFEST.in",
+        ".gitignore"
     ]
 
     folders = {
