@@ -34,8 +34,16 @@ def generate(
     with open(ASSETS / "setup.py.template", "r") as f:
         templates["setup"] = f.read()
 
+    logger.debug(templates['setup'])
+
     with open(root / "setup.py", "w") as f:
-        f.write(templates["setup"])
+        f.write(
+            templates["setup"].format(
+                **{
+                    'name': name,
+                }
+            )
+        )
 
     # Add README.md
     with open(root / "README.md", "w") as f:
