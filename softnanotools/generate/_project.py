@@ -33,6 +33,7 @@ def generate(
     modules: List[str] = None,
     dry_run: bool = False,
     pre_commit: bool = False,
+    pip_install: bool = False,
     root=None,
 ):
 
@@ -60,6 +61,7 @@ def generate(
         "pyproject.toml",
         "quick-build.yml",
         "coverage.yml",
+        "versioneer.py"
     ]
 
     if pre_commit:
@@ -87,17 +89,19 @@ def generate(
         )
 
     if not dry_run:
-        subprocess.run(["git", "init"])
+        subprocess.run(["git", "init", "-b", "main"], cwd=root)
         if pre_commit:
-            subprocess.run(["pre-commit", "install"])
-        subprocess.run(["git", "add", "."])
+            subprocess.run(["pre-commit", "install"], cwd=root)
+        subprocess.run(["git", "add", "."], cwd=root)
         subprocess.run([
             "git",
             "commit",
             "-a",
             "-m",
             f"'First commit for {name} by softnanotools!'"
-        ])
+        ], cwd=root)
+        if pip_install:
+            subprocess.run(["pip", "install", "-e", name])
 
     return
 

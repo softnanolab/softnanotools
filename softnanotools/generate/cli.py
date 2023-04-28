@@ -15,6 +15,7 @@ def run(
     packages: List[str] = None,
     dry_run: bool = False,
     pre_commit: bool = False,
+    pip_install: bool = False,
     **kwargs
 ):
     """Run the softnanotools.[command] command from the terminal."""
@@ -39,6 +40,7 @@ def run(
             modules=modules,
             dry_run=dry_run,
             pre_commit=pre_commit,
+            pip_install=pip_install,
         )
     return
 
@@ -54,12 +56,18 @@ def main():
         "--dry-run",
         action="store_true",
         help="If you don't use this, `git init` and "
-        "`pre-commit install` won't be run"
+        "`pre-commit install` won't be run on a new project"
     )
     parser.add_argument(
         "--pre-commit",
         action="store_true",
-        help="Add ruff auto-linting as a pre-commit"
+        help="Add ruff auto-linting as a pre-commit on a new project"
+    )
+    parser.add_argument(
+        "--pip-install",
+        action="store_true",
+        help="Use if you want to run `pip install -e .`"
+        " on a newly generated project"
     )
     args = parser.parse_args()
     run("generate", **vars(args))
