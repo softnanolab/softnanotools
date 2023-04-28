@@ -1,2 +1,3 @@
 include versioneer.py
 include softnanotools/_version.py
+include softnanotools/generate/assets/*
