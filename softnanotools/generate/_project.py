@@ -86,7 +86,10 @@ def generate(
             templates[fname])
 
     if not dry_run:
+        # Initialise git repo with "main" as default branch
         subprocess.run(["git", "init"], cwd=root)
+        subprocess.run(['git', 'branch', '-M', 'main'], cwd=root)
+
         if pre_commit:
             subprocess.run(["pre-commit", "install"], cwd=root)
         subprocess.run(["git", "add", "."], cwd=root)
