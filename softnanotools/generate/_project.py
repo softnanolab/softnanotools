@@ -6,9 +6,11 @@ from pathlib import Path
 from . import _package
 
 from softnanotools.logger import Logger
+
 logger = Logger(__name__)
 
 ASSETS = Path(__file__).parent / "assets"
+
 
 def execute_template(fname: str, **kwargs) -> str:
     """Takes template from ASSETS folder and formats it with arguments"""
@@ -18,6 +20,7 @@ def execute_template(fname: str, **kwargs) -> str:
         result = result.format(**kwargs)
     return result
 
+
 def write_template(folder: Union[str, Path], fname: str, content: str):
     """Writes template to file in a project directory"""
     # create folder if it doesn't exist
@@ -26,6 +29,7 @@ def write_template(folder: Union[str, Path], fname: str, content: str):
     with open(folder / fname, "w") as f:
         # write templated version with {subs} substitution rules
         f.write(content)
+
 
 def generate(
     name,
@@ -52,17 +56,9 @@ def generate(
 
     # create list of files to generate
     filenames = [
-        "setup.py",
-        "README.md",
-        "setup.cfg",
-        "_version.py",
-        "MANIFEST.in",
-        ".gitignore",
-        "pyproject.toml",
-        "quick-build.yml",
-        "coverage.yml",
-        "versioneer.py",
-        '.gitattributes'
+        "setup.py", "README.md", "setup.cfg", "_version.py", "MANIFEST.in",
+        ".gitignore", "pyproject.toml", "quick-build.yml", "coverage.yml",
+        "versioneer.py", '.gitattributes'
     ]
 
     if pre_commit:
@@ -84,25 +80,52 @@ def generate(
 
         # write template to file
         write_template(
-            folders.get(fname, root), # use root folder if custom not specified
+            folders.get(fname,
+                        root),  # use root folder if custom not specified
             fname,
-            templates[fname]
-        )
+            templates[fname])
 
     if not dry_run:
-        subprocess.run(["git", "init", "-b", "main"], cwd=root)
-        if pre_commit:
-            subprocess.run(["pre-commit", "install"], cwd=root)
-        subprocess.run(["git", "add", "."], cwd=root)
-        subprocess.run([
-            "git",
-            "commit",
-            "-a",
-            "-m",
-            f"'First commit for {name} by softnanotools!'"
-        ], cwd=root)
+
         if pip_install:
             subprocess.run(["pip", "install", "-e", name])
+
+        # Initialise git repo with "main" as default branch
+        try:
+            subprocess.run(["git", "init"], cwd=root)
+        except Exception:
+            logger.warning(
+                "Running git failed, skipping all git steps by default, next "
+                "time use `--dry-run to avoid this warning!"
+            )
+            return
+        try:
+            subprocess.run(['git', 'branch', '-M', 'main'], cwd=root)
+        except Exception:
+            logger.warning(
+                "`git init` worked, but `git branch -M main` failed, consider"
+                " upgrading your version of git! Continuing to add files and "
+                "make first commit."
+            )
+            return
+
+
+
+        if pre_commit:
+            try:
+                subprocess.run(["pre-commit", "install"], cwd=root)
+            except Exception:
+                logger.kill(
+                    "`pre-commit install` failed, please reinstall "
+                    "pre-commit with pip install pre-commit or remove "
+                    "the --pre-commit flag!"
+                )
+
+        subprocess.run(["git", "add", "."], cwd=root)
+        subprocess.run([
+            "git", "commit", "-a", "-m",
+            f"'First commit for {name} by softnanotools!'"
+        ], cwd=root)
 
     return
 
