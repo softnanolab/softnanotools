@@ -26,4 +26,5 @@ setuptools.setup(
             "softnanotools.generate=softnanotools.generate.cli:main",
         ],
     },
+    include_package_data = True
 )
