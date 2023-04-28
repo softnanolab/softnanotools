@@ -86,20 +86,46 @@ def generate(
             templates[fname])
 
     if not dry_run:
+
+        if pip_install:
+            subprocess.run(["pip", "install", "-e", name])
+
         # Initialise git repo with "main" as default branch
-        subprocess.run(["git", "init"], cwd=root)
-        subprocess.run(['git', 'branch', '-M', 'main'], cwd=root)
+        try:
+            subprocess.run(["git", "init"], cwd=root)
+        except Exception:
+            logger.warning(
+                "Running git failed, skipping all git steps by default, next "
+                "time use `--dry-run to avoid this warning!"
+            )
+            return
+        try:
+            subprocess.run(['git', 'branch', '-M', 'main'], cwd=root)
+        except Exception:
+            logger.warning(
+                "`git init` worked, but `git branch -M main` failed, consider"
+                " upgrading your version of git! Continuing to add files and "
+                "make first commit."
+            )
+            return
+
+
 
         if pre_commit:
-            subprocess.run(["pre-commit", "install"], cwd=root)
+            try:
+                subprocess.run(["pre-commit", "install"], cwd=root)
+            except Exception:
+                logger.kill(
+                    "`pre-commit install` failed, please reinstall "
+                    "pre-commit with pip install pre-commit or remove "
+                    "the --pre-commit flag!"
+                )
+
         subprocess.run(["git", "add", "."], cwd=root)
         subprocess.run([
             "git", "commit", "-a", "-m",
             f"'First commit for {name} by softnanotools!'"
-        ],
-                       cwd=root)
-        if pip_install:
-            subprocess.run(["pip", "install", "-e", name])
+        ], cwd=root)
 
     return
 

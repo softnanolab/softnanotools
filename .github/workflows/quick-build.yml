@@ -7,12 +7,15 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [3.5, 3.6, 3.7, 3.8, 3.9, 3.10]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: ${{ matrix.version }}
     - name: Update Dependencies
       run: pip install --upgrade pip setuptools wheel
     - name: Install
@@ -21,3 +24,5 @@ jobs:
       run: pip install pytest && pytest
     - name: Ruff
       uses: chartboost/ruff-action@v1
+    - name: Test project generation
+      run: softnanotools.generate project example --pre-commit --pip-install && python -c "import example"
