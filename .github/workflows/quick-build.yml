@@ -6,13 +6,16 @@ on: push
 
 jobs:
   build:
+    strategy:
+      matrix:
+        version: ["3.5", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.x'
+        python-version: ${{ matrix.version }}
     - name: Update Dependencies
       run: pip install --upgrade pip setuptools wheel
     - name: Install
