@@ -13,10 +13,8 @@ def run(
     name: str,
     modules: List[str] = None,
     packages: List[str] = None,
-    github_actions: bool = False,
-    code_cov: bool = False,
-    no_versioneer: bool = False,
-    tests: bool = False,
+    dry_run: bool = False,
+    pre_commit: bool = False,
     **kwargs
 ):
     """Run the softnanotools.[command] command from the terminal."""
@@ -39,9 +37,8 @@ def run(
             name,
             packages=packages,
             modules=modules,
-            github_actions=github_actions,
-            code_cov=code_cov,
-            versioneer=not no_versioneer,
+            dry_run=dry_run,
+            pre_commit=pre_commit,
         )
     return
 
@@ -53,10 +50,17 @@ def main():
     parser.add_argument("name")
     parser.add_argument("-m", "--modules", nargs="+")
     parser.add_argument("-p", "--packages", nargs="+")
-    parser.add_argument("--github-actions", action="store_true")
-    parser.add_argument("--tests", action="store_true")
-    parser.add_argument("--code-cov", action="store_true")
-    parser.add_argument("--no-versioneer", action="store_true")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="If you don't use this, `git init` and "
+        "`pre-commit install` won't be run"
+    )
+    parser.add_argument(
+        "--pre-commit",
+        action="store_true",
+        help="Add ruff auto-linting as a pre-commit"
+    )
     args = parser.parse_args()
     run("generate", **vars(args))
     return
