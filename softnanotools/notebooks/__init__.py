@@ -1,5 +1,4 @@
-"""
-The `notebooks` module contains tools for importing and
+"""The `notebooks` module contains tools for importing and
 scripting the generation of Jupyter Notebooks.
 
 To a computer scientist Jupyter Notebooks are nothing 
@@ -18,7 +17,6 @@ classes:
     IPythonTools - a class full of static methods
 
 """
-from ._core import IPythonCell, IPythonNotebook, MARKDOWN, CODE
 from ._utils import IPythonTools
 
 merge = IPythonTools.merge

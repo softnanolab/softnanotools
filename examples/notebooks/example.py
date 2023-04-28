@@ -1,6 +1,5 @@
-from typing import List
 
-from softnanotools.notebooks import IPythonCell, IPythonNotebook, IPythonTools, CODE, MARKDOWN, merge
+from softnanotools.notebooks import IPythonNotebook, MARKDOWN, merge
 
 def create_notebook(fname: str):
     """Create a notebook with a single line
@@ -13,7 +12,7 @@ def create_notebook(fname: str):
 def read_notebook(fname: str):
     """Read a notebook using the IPythonNotebook constructor
     """
-    nb = IPythonNotebook(fname)
+    IPythonNotebook(fname)
     return
 
 def main():

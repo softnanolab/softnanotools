@@ -8,10 +8,10 @@ NOTEBOOKS = [
 ]
 
 def test_IPythonNotebook():
-    notebook = core.IPythonNotebook(fname=NOTEBOOKS[0])
+    core.IPythonNotebook(fname=NOTEBOOKS[0])
     return
 
 def test_IPythonCell():
-    cell = core.IPythonCell()
+    core.IPythonCell()
     return
     

@@ -17,7 +17,7 @@ def test_ComponentContainer():
     return
 
 def test_FileContainer():
-    container = components.FileContainer('example')
+    components.FileContainer('example')
     return
 
 if __name__ == '__main__':

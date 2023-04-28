@@ -1,12 +1,9 @@
 #!/usr/bin/env python
-from pathlib import Path
-from typing import Union
-
+from ._components import ComponentContainer
 from ..logger import Logger
-
 logger = Logger(__name__)
 
-from ._components import ComponentContainer
+
 
 
 class Script(ComponentContainer):

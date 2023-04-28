@@ -1,4 +1,4 @@
-"""Container for core classes IPythonNotebook, IPythonCell
+"""Container for core classes IPythonNotebook, IPythonCell.
 
 Constants:
     _NBFORMAT_ (int): format major version (currently 4)
@@ -14,7 +14,6 @@ Classes:
     IPythonNotebook: Container for an IPython Notebook
 """
 import json
-from re import L
 from typing import List
 
 _NBFORMAT_ = 4
@@ -60,7 +59,7 @@ MARKDOWN = "markdown"
 
 
 class IPythonCell:
-    """A cell of an IPython Notebook
+    """A cell of an IPython Notebook.
 
     Attributes:
         cell_type: 'markdown' or 'code'
@@ -74,7 +73,7 @@ class IPythonCell:
     """
 
     def __init__(self, cell: dict = None):
-        if cell == None:
+        if cell is None:
             self.cell_type = None
             self.metadata = {}
             self.source = []
@@ -96,7 +95,7 @@ class IPythonCell:
 
     @staticmethod
     def validate(cell: dict):
-        """Check if a dictionary can be converted to a cell
+        """Check if a dictionary can be converted to a cell.
 
         Params:
             data: dictionary containing JSON data
@@ -115,7 +114,7 @@ class IPythonCell:
 
 
 class IPythonNotebook:
-    """Notebook Container
+    """Notebook Container.
 
     Parameters:
         fname: file name to read (optional)
@@ -146,7 +145,7 @@ class IPythonNotebook:
             self.data["metadata"] = _DEFAULT_METADATA_
 
     def add_cell(self, cell_type: str, source: List[str], metadata: dict = None):
-        """Add a cell to the notebook
+        """Add a cell to the notebook.
 
         Params:
             cell_type: 'code' or 'markdown'
@@ -175,7 +174,7 @@ class IPythonNotebook:
         return
 
     def read(self, fname: str) -> dict:
-        """Reads a IPython Notebook
+        """Reads a IPython Notebook.
 
         Params:
             fname: filepath of notebook
@@ -190,7 +189,7 @@ class IPythonNotebook:
         return data
 
     def write(self, fname: str):
-        """Writes instance to .ipynb file
+        """Writes instance to .ipynb file.
 
         Params:
             fname: filepath of output notebook
@@ -201,7 +200,7 @@ class IPythonNotebook:
 
     @staticmethod
     def validate(data: dict):
-        """Checks that a IPython Notebook is of a valid format
+        """Checks that a IPython Notebook is of a valid format.
 
         Params:
             data: dictionary containing JSON data

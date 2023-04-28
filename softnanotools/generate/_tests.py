@@ -1,25 +1,21 @@
 #!/usr/bin/env python
-"""Generate a pytest suite with example test file
-"""
+"""Generate a pytest suite with example test file."""
 from pathlib import Path
 from typing import List
-from softnanotools.logger import Logger
-
-logger = Logger(__name__)
-
 from ._components import ComponentContainer
-
+from softnanotools.logger import Logger
+logger = Logger(__name__)
 
 class TestContainer(ComponentContainer):
     def __init__(
         self, module: str, classes: List[str] = None, functions: List[str] = None
     ):
-        if classes == None:
+        if classes is None:
             self._classes = []
         else:
             self._classes = classes
 
-        if functions == None:
+        if functions is None:
             self._functions = []
         else:
             self._functions = classes
@@ -67,7 +63,7 @@ class TestContainer(ComponentContainer):
 
 class TestGenerator:
     """Reads the non-default classes and functions in a file, creates a test
-    file, that imports all of them individually,
+    file, that imports all of them individually.
     """
 
     def __init__(self, module: str, folder: str = "test"):
@@ -93,7 +89,8 @@ def generate(packages: List[str]):
     package, finds all of the nested packages and modules, and then
     creates a list of <package>.<module> strings, reads the functions
     and classes present in each <package>.<module> and creates tests
-    for all of them, if they aren't already present."""
+    for all of them, if they aren't already present.
+    """
     return
 
 
