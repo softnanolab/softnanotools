@@ -61,7 +61,8 @@ def generate(
         "pyproject.toml",
         "quick-build.yml",
         "coverage.yml",
-        "versioneer.py"
+        "versioneer.py",
+        '.gitattributes'
     ]
 
     if pre_commit:
