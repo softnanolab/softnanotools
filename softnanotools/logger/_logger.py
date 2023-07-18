@@ -2,7 +2,7 @@
 
 Classes:
     Logger: tool for logging
-    NewLineFormatter: 
+    NewLineFormatter:
         formatter for the logger, ensuring prefixes can be easily
         added on each new line
 
@@ -95,16 +95,50 @@ class Logger:
         """Print an info message for DEBUG_LEVEL<=20."""
         self.logger.info(message)
 
-    def warning(self, message):
+    def warning(self, message: str):
         """Print a warning message for DEBUG_LEVEL<=30."""
         self.logger.warning(message)
 
-    def error(self, message):
-        """Print an error message for DEBUG_LEVEL<=40."""
-        self.logger.error(message)
-        raise SystemError(message)
+    def error(
+        self,
+        message: str,
+        error: Exception = SystemError,
+        exception: Exception = None
+    ):
+        """Print an error message for DEBUG_LEVEL<=40.
 
-    def kill(self, message=""):
-        """Kill program and print message for DEBUG_LEVEL<=50."""
+        Args:
+            message: message for logger to print
+            error: the error that should be raised
+            exception: any previous exceptions that caused the error
+
+        Raises:
+            Exception: (default SystemError)
+        """
+        self.logger.error(message)
+        if exception is None:
+            raise error(message)
+        else:
+            raise error(message) from exception
+
+    def kill(
+        self,
+        message: str,
+        error: Exception = SystemExit,
+        exception: Exception = None
+    ):
+        """Kill program and print message for DEBUG_LEVEL<=50.
+
+        Args:
+            message: message for logger to print
+            error: the error that should be raised
+            exception: any previous exceptions that caused the error
+
+        Raises:
+            Exception: (default SystemExit)
+        """
         self.logger.critical(message)
-        raise SystemExit(message)
+        if exception is None:
+            raise error(message)
+        else:
+            raise error(message) from exception
