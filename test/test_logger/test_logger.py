@@ -62,3 +62,39 @@ def test_Logger_with_filehandler():
 
     logfile.unlink()
     return
+
+def test_Logger_errors():
+    # Using custom error
+    logger = Logger(__name__)
+    try:
+        logger.error("Test Error", KeyError)
+    except KeyError:
+        pass
+
+    # Including traceback from previous exception
+    x = [1, 2, 3]
+    try:
+        x[4]
+    except IndexError as exc:
+        try:
+            logger.error("Test Error", exception=exc)
+        except SystemError:
+            pass
+
+def test_Logger_kills():
+    # Using custom error
+    logger = Logger(__name__)
+    try:
+        logger.kill("Test Error")
+    except SystemExit:
+        pass
+
+    # Including traceback from previous exception
+    x = [1, 2, 3]
+    try:
+        x[4]
+    except IndexError as exc:
+        try:
+            logger.kill("Test Error", exception=exc)
+        except SystemExit:
+            pass
