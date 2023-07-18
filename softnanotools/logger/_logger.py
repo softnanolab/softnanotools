@@ -124,7 +124,6 @@ class Logger:
     def kill(
         self,
         message: str,
-        error: Exception = SystemExit,
         exception: Exception = None
     ):
         """Kill program and print message for DEBUG_LEVEL<=50.
@@ -139,6 +138,6 @@ class Logger:
         """
         self.logger.critical(message)
         if exception is None:
-            raise error(message)
+            raise SystemExit(message)
         else:
-            raise error(message) from exception
+            raise SystemExit(message) from exception
