@@ -11,7 +11,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/softnanolab/softnanotools",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(exclude=['*test*']),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
@@ -26,5 +26,5 @@ setuptools.setup(
             "softnanotools.generate=softnanotools.generate.cli:main",
         ],
     },
-    include_package_data = True
+    include_package_data=True
 )
