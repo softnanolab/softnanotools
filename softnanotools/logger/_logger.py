@@ -15,7 +15,7 @@ from typing import Union
 
 
 class NewLineFormatter(logging.Formatter):
-    """Custom Formatter to allow newlines."""
+    """Custom Formatter to allow newlines when printing long log messages"""
 
     def __init__(self):
         """Initialise with normal logging format string."""
