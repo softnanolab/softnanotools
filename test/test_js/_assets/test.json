@@ -1,3 +1,6 @@
 {
-  "user": "test"
+  "user": "test",
+  "example" : {
+    "nested": "test"
+  }
 }

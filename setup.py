@@ -24,6 +24,7 @@ setuptools.setup(
         "console_scripts": [
             "softnanotools=softnanotools.cli:main",
             "softnanotools.generate=softnanotools.generate.cli:main",
+            "softnanotools.js=softnanotools.js.cli:main",
         ],
     },
     include_package_data=True
