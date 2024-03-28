@@ -24,13 +24,14 @@ class JSONReader:
         return
 
     def write(self, output: Path):
-        """Writes a """
+        """Writes JSONReader.data to file"""
         with open(output, 'w') as f:
-            json.dump(f, indent=2)
+            json.dump(self.data, f, indent=2)
         return
 
     @staticmethod
     def replace(fname: Path, key: str, value: Any):
+        """Reads a JSON file and replaces any key with a new value"""
         reader = JSONReader(fname)
         reader.data[key] = value
         reader.write(fname)
